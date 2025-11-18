@@ -3,6 +3,10 @@
   flex-direction: column;
   align-items: center;
   padding: 4rem 2rem;
+  background-color: #c6e5ab;
+  /* 統一テキストカラーを設定（子要素はこれを継承する） */
+  --text-color: #ff69b4;
+  color: var(--text-color);
   min-height: 100vh;
 }
 
@@ -10,19 +14,19 @@
   text-align: center;
   margin-bottom: 3rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #e0538c 70%, #fff5f8 30%);
+  background: linear-gradient(135deg, #ffffff 0%, #fffafc 100%);
   border-radius: var(--border-radius);
-  border: 2px solid rgba(255, 182, 193, 0.2);
+  border: 2px solid #ffd1dc;
   max-width: var(--max-width);
   width: 100%;
-  box-shadow: 0 4px 20px rgba(255, 182, 193, 0.2);
+  box-shadow: 0 4px 20px rgba(49, 216, 27, 0.2);
 }
 
 .title {
   font-size: 3rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #e0ae23, #d10d0d, #bbdd31);
+  background: linear-gradient(135deg, #1818ce, #ff69b4, #1818ce);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -30,7 +34,6 @@
 
 .subtitle {
   font-size: 1.2rem;
-  color: #d10d0d;
   margin-bottom: 1rem;
 }
 
@@ -38,7 +41,7 @@
   font-size: 1rem;
   line-height: 1.8;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 10px;
 }
 
 .profileSection {
@@ -56,7 +59,6 @@
   font-size: 1.8rem;
   font-weight: 600;
   margin-bottom: 1.5rem;
-  color: #ff69b4;
   border-bottom: 3px solid #ffb6c1;
   padding-bottom: 0.5rem;
 }
@@ -70,7 +72,6 @@
 
 .profileLabel {
   font-weight: 600;
-  color: #ff69b4;
 }
 
 .profileValue {
@@ -83,6 +84,11 @@
   gap: 2rem;
   max-width: var(--max-width);
   width: 100%;
+}
+
+.cardLink {
+  text-decoration: none;
+  color: inherit;
 }
 
 .card {
@@ -106,7 +112,6 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #ff69b4;
 }
 
 .card p {
