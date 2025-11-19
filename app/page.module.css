@@ -80,10 +80,18 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* デスクトップでは 2 列に固定（ただし列の最小幅を下げて小窓でも縮むようにする） */
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
   gap: 2rem;
   max-width: var(--max-width);
   width: 100%;
+}
+
+/* 中くらいの幅では列幅を柔軟にして自動で折り返す（ウィンドウ縮小時に綺麗に縮む） */
+@media (max-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
 }
 
 .cardLink {
@@ -92,13 +100,20 @@
 }
 
 .card {
-  padding: 2rem;
+  padding: clamp(1rem, 2vw, 2rem);
   border-radius: var(--border-radius);
   background: linear-gradient(135deg, #ffffff 0%, #fffafd 100%);
   border: 2px solid #ffe4e1;
   transition: all 300ms ease;
   cursor: pointer;
   box-shadow: 0 2px 15px rgba(255, 182, 193, 0.1);
+  /* 高さは比率に応じて縮むように min を使用 */
+  min-height: min(220px, 30vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .card:hover {
@@ -110,8 +125,24 @@
 
 .card h2 {
   font-size: 1.5rem;
-  font-weight: 600;
+  font-weight: 300;
   margin-bottom: 1rem;
+}
+
+/* カードを大きくして中身の文字を中央揃えにする */
+.card {
+  min-height: 220px; /* カードの高さを大きくする */
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card h2 {
+  font-size: clamp(1.2rem, 2vw + 1rem, 1.8rem);
+  margin: 0;
 }
 
 .card p {
@@ -180,6 +211,10 @@
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 140px;
   }
 
   .logoText {

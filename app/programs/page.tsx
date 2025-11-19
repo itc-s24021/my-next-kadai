@@ -21,7 +21,6 @@ export default function Programs() {
         {representativePrograms.map((program, index) => (
           <div key={index} className={styles.card}>
             <h2>{program}</h2>
-            <p>上沼恵美子さんの代表的なテレビ番組です。</p>
           </div>
         ))}
       </div>

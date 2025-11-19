@@ -13,7 +13,7 @@
   align-self: flex-start;
   margin-bottom: 2rem;
   padding: 0.5rem 1rem;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(#ff69b4);
   border-radius: 4px;
   text-decoration: none;
   transition: background-color 200ms ease;
@@ -32,13 +32,14 @@
   border: 2px solid #ffd1dc;
   max-width: 1200px;
   width: 100%;
-  box-shadow: 0 4px 20px rgba(49, 216, 27, 0.2);
+  box-shadow: 0 4px 20px rgba(216, 27, 210, 0.2);
 }
 
 .title {
   font-size: 2.5rem;
   font-weight: 700;
   margin: 0;
+  color: #ff69b4;
 }
 
 .container {
@@ -71,12 +72,14 @@
   font-weight: 600;
   margin-top: 0;
   margin-bottom: 0.5rem;
+  color: #ff69b4;
 }
 
 .card p {
   line-height: 1.6;
   margin: 0;
   font-size: 0.95rem;
+  color: #ff69b4;
 }
 
 /* Mobile */

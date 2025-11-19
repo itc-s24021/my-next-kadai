@@ -22,7 +22,6 @@ export default function Features() {
         {featuresList.map((feature, index) => (
           <div key={index} className={styles.card}>
             <h2>{feature}</h2>
-            <p>上沼恵美子さんの特徴の一つです。</p>
           </div>
         ))}
       </div>

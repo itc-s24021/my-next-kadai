@@ -5,30 +5,18 @@ export default function Home() {
   const cards = [
     {
       title: "代表番組",
-      items: ["上沼・高田のクギズケ", "上沼恵美子のこころ晴天"],
       href: "/programs",
     },
     {
       title: "肩書",
-      items: [
-        "（元）海原千里・万里",
-        "（元）Ｍ-１グランプリ審査員",
-        "（元）長寿お料理番組の司会",
-      ],
       href: "/titles",
     },
     {
       title: "特徴",
-      items: [
-        "毒舌とユーモアを兼ね備えた話術",
-        "豊富な司会・トーク番組の経験",
-        "観客や出演者との距離感が絶妙",
-      ],
       href: "/features",
     },
     {
       title: "愛称",
-      items: ["えみちゃん", "ジョーカー", "白顔", "千里"],
       href: "/nicknames",
     },
   ];
@@ -44,19 +32,22 @@ export default function Home() {
         <h2 className={styles.profileTitle}>プロフィール</h2>
         <div className={styles.profileGrid}>
           <div className={styles.profileLabel}>名前</div>
-          <div className={styles.profileValue}>上沼 恵美子（かみぬま えみこ）</div>
+          <div className={styles.profileLabel}>: 上沼 恵美子（かみぬま えみこ）</div>
 
           <div className={styles.profileLabel}>生年月日</div>
-          <div className={styles.profileValue}>1955年4月13日</div>
+          <div className={styles.profileLabel}>: 1955年4月13日</div>
 
           <div className={styles.profileLabel}>出身地</div>
-          <div className={styles.profileValue}>兵庫県淡路島</div>
+          <div className={styles.profileLabel}>: 兵庫県淡路島</div>
 
           <div className={styles.profileLabel}>職業</div>
-          <div className={styles.profileValue}>タレント、司会者、漫才師、歌手</div>
+          <div className={styles.profileLabel}>: タレント、司会者、漫才師、歌手</div>
+
+          <div className={styles.profileLabel}>所属事務所</div>
+          <div className={styles.profileLabel}>: 上沼事務所</div>
 
           <div className={styles.profileLabel}>活動期間</div>
-          <div className={styles.profileValue}>1971年〜休養を経て現在</div>
+          <div className={styles.profileLabel}>: 1971年〜休養を経て現在</div>
         </div>
       </div>
 

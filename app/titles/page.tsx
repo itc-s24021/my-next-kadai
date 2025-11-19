@@ -22,7 +22,6 @@ export default function Titles() {
         {titlesList.map((title, index) => (
           <div key={index} className={styles.card}>
             <h2>{title}</h2>
-            <p>上沼恵美子さんのキャリアの一部です。</p>
           </div>
         ))}
       </div>
