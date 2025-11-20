@@ -1,13 +1,8 @@
 import Link from "next/link";
 import styles from "./page.module.css";
+import { featuresList } from "../data";
 
 export default function Features() {
-  const featuresList = [
-    "毒舌とユーモアを兼ね備えた話術",
-    "豊富な司会・トーク番組の経験",
-    "観客や出演者との距離感が絶妙",
-  ];
-
   return (
     <main className={styles.main}>
       <Link href="/" className={`${styles.backLink} no-global-color`}>

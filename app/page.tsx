@@ -1,7 +1,28 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./page.module.css";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+  const [selectedImage, setSelectedImage] = useState(0);
+
+  const images = [
+    "/profile.jpg",
+    "/profile2.jpg",
+    "/profile3.webp",
+    "/profile4.webp",
+    "/profile5.jpeg",
+    "/profile6.avif",
+  ];
+
+  // ページロード時にランダムな画像を選択
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * images.length);
+    setSelectedImage(randomIndex);
+  }, [images.length]);
+
   const cards = [
     {
       title: "代表番組",
@@ -24,6 +45,29 @@ export default function Home() {
   return (
     <main className={`${styles.main} no-global-color`}>
       <div className={styles.header}>
+        {/* 画像ギャラリー */}
+        <Image
+          src={images[selectedImage]}
+          alt="プロフィール画像"
+          width={120}
+          height={120}
+          className={styles.profileImg}
+        />
+        {/* 画像選択タブ */}
+        <div className={styles.imageTabs}>
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setSelectedImage(index)}
+              className={`${styles.tabButton} ${
+                selectedImage === index ? styles.tabButtonActive : ""
+              }`}
+              title={`画像 ${index + 1}`}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
         <p className={styles.subtitle}>関西を代表する女性タレント・司会者</p>
         <h1 className={styles.title}>上沼恵美子</h1>
       </div>

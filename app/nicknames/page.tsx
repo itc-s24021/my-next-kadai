@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styles from "./page.module.css";
+import { nicknames } from "../data";
 
 export default function Nicknames() {
-  const nicknames = ["えみちゃん", "ジョーカー", "白顔"];
 
   return (
     <main className={styles.main}>

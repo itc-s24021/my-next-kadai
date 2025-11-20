@@ -1,12 +1,8 @@
 import Link from "next/link";
 import styles from "./page.module.css";
+import { representativePrograms } from "../data";
 
 export default function Programs() {
-  const representativePrograms = [
-    "上沼・高田のクギズケ",
-    "上沼恵美子のこころ晴天",
-  ];
-
   return (
     <main className={styles.main}>
       <Link href="/" className={`${styles.backLink} no-global-color`}>
