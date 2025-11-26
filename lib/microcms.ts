@@ -1,5 +1,11 @@
 import { createClient } from 'microcms-js-sdk';
 
+import type {
+  MicroCMSQueries,
+  MicroCMSImage,
+  MicroCMSListContent,
+} from 'microcms-js-sdk';
+
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
   throw new Error('MICROCMS_SERVICE_DOMAIN is required');
 }
@@ -14,50 +20,96 @@ export const client = createClient({
 });
 
 // 型定義
-export type Profile = {
-  id: string;
+export type television = {
+  title : string;
+}
+
+export type name = {
   name: string;
-  nameKana: string;
-  birthDate: string;
-  birthPlace: string;
-  occupation: string;
-  agency: string;
-  activePeriod: string;
-  subtitle: string;
-  images: Array<{
-    url: string;
-    width?: number;
-    height?: number;
-  }>;
-};
+}
 
-export type Card = {
-  id: string;
-  title: string;
-  slug: string;
-};
+export type features = {
+  features: string;
+}
 
-export type Program = {
-  id: string;
-  title: string;
-  description: string;
-  period?: string;
-};
+export type nickname = {
+  nickname: string;
+}
 
-export type Title = {
-  id: string;
-  title: string;
-  description?: string;
-};
+export const gettelevisionList = async (querier?: MicroCMSQueries) => {
+  const televisionlist = await client
+    .getList<television>({
+      endpoint: 'television',
+      queries: querier,
+    });
+  return televisionlist;
+}
+export const gettelevisiondata = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const televisiondata = await client.getListDetail<television>({
+      endpoint: 'television',
+      contentId,
+      queries,
+    });
+  return televisiondata;
+}
+export const getnicknameList = async (querier?: MicroCMSQueries) => {
+  const nicknamelist = await client
+    .getList<nickname>({
+      endpoint: 'nickname',
+      queries: querier,
+    });
+  return nicknamelist;
+}
+export const getnicknamedata = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const nicknamedata = await client.getListDetail<nickname>({
+      endpoint: 'nickname',
+      contentId,
+      queries,
+    });
+  return nicknamedata;
+}
+export const getnameList = async (querier?: MicroCMSQueries) => {
+  const namelist = await client
+    .getList<name>({
+      endpoint: 'name',
+      queries: querier,
+    });
+  return namelist;
+}
+export const getnamedata = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const namedata = await client.getListDetail<name>({
+      endpoint: 'name',
+      contentId,
+      queries,
+    });
+  return namedata;
+}
+export const getfeaturesList = async (querier?: MicroCMSQueries) => {
+  const featureslist = await client
+    .getList<features>({
+      endpoint: 'features',
+      queries: querier,
+    });
+  return featureslist;
+}
+export const getfeaturesdata = async (
+  contentId: string,
+  queries?: MicroCMSQueries
+) => {
+  const featuresdata = await client.getListDetail<features>({
+      endpoint: 'features',
+      contentId,
+      queries,
+    });
+  return featuresdata;
+}
 
-export type Feature = {
-  id: string;
-  title: string;
-  description: string;
-};
-
-export type Nickname = {
-  id: string;
-  name: string;
-  description?: string;
-};

@@ -1,8 +1,10 @@
 import Link from "next/link";
 import styles from "./page.module.css";
-import { representativePrograms } from "../data";
+import { gettelevisionList } from "@/lib/microcms";
 
-export default function Programs() {
+export default async function Television() {
+  const television = await gettelevisionList();
+
   return (
     <main className={styles.main}>
       <Link href="/" className={`${styles.backLink} no-global-color`}>
@@ -14,9 +16,9 @@ export default function Programs() {
       </div>
 
       <div className={styles.container}>
-        {representativePrograms.map((program, index) => (
+        {television.contents.map((tv, index) => (
           <div key={index} className={styles.card}>
-            <h2>{program}</h2>
+            <h2>{tv.title}</h2>
           </div>
         ))}
       </div>

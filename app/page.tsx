@@ -1,9 +1,7 @@
 import Link from "next/link";
 import styles from "./page.module.css";
-import { client, type Profile, type Card } from "@/lib/microcms";
-import ImageGallery from "@/components/ImageGallery";
 
-// 画像配列をコンポーネント外に移動
+// 画像配列（ローカルデータ）
 const fallbackImages = [
   "/profile.jpg",
   "/profile2.jpg",
@@ -14,25 +12,9 @@ const fallbackImages = [
 ];
 
 export default async function Home() {
-  // microCMSからデータを取得
-  let profile: Profile | null = null;
-  let cards: Card[] = [];
 
-  try {
-    profile = await client.get({
-      endpoint: 'profile',
-    });
-
-    const cardsResponse = await client.get({
-      endpoint: 'cards',
-    });
-    cards = cardsResponse.contents || [];
-  } catch (error) {
-    console.error('microCMS fetch error:', error);
-  }
-
-  // フォールバック用のデータ
-  const defaultProfile = {
+  // ローカルのプロフィールデータ
+  const displayProfile = {
     name: "上沼 恵美子",
     nameKana: "かみぬま えみこ",
     birthDate: "1955年4月13日",
@@ -44,52 +26,56 @@ export default async function Home() {
     images: fallbackImages.map(url => ({ url })),
   };
 
-  const defaultCards = [
-    { id: "1", title: "代表番組", slug: "programs" },
-    { id: "2", title: "肩書", slug: "titles" },
+  const displayCards = [
+    { id: "1", title: "代表番組", slug: "television" },
+    { id: "2", title: "肩書", slug: "name" },
     { id: "3", title: "特徴", slug: "features" },
-    { id: "4", title: "愛称", slug: "nicknames" },
+    { id: "4", title: "愛称", slug: "nickname" },
   ];
-
-  const displayProfile = profile || defaultProfile;
-  const displayCards = cards.length > 0 ? cards : defaultCards;
-
-  // 画像URLの配列を作成
-  const images = displayProfile.images?.map(img => img.url) || fallbackImages;
-
-  // ランダムな初期画像インデックスを計算
-  const randomIndex = Math.floor(Math.random() * images.length);
 
   return (
     <main className={`${styles.main} no-global-color`}>
       <div className={styles.header}>
-        {/* クライアントコンポーネントをインポート */}
-        <ImageGallery images={images} initialIndex={randomIndex} />
-        
         <p className={styles.subtitle}>{displayProfile.subtitle}</p>
         <h1 className={styles.title}>{displayProfile.name}</h1>
       </div>
 
       <div className={styles.profileSection}>
         <h2 className={styles.profileTitle}>プロフィール</h2>
-        <div className={styles.profileGrid}>
-          <div className={styles.profileLabel}>名前</div>
-          <div className={styles.profileLabel}>: {displayProfile.name}（{displayProfile.nameKana}）</div>
+        
+        {/* 画像とテキストを横並びにするコンテナ */}
+        <div className={styles.profileContainer}>
+          
+          {/* 先にテキスト情報（これで左側に表示されます） */}
+          <div className={styles.profileGrid}>
+            <div className={styles.profileLabel}>名前</div>
+            <div className={styles.profileLabel}>: {displayProfile.name}（{displayProfile.nameKana}）</div>
 
-          <div className={styles.profileLabel}>生年月日</div>
-          <div className={styles.profileLabel}>: {displayProfile.birthDate}</div>
+            <div className={styles.profileLabel}>生年月日</div>
+            <div className={styles.profileLabel}>: {displayProfile.birthDate}</div>
 
-          <div className={styles.profileLabel}>出身地</div>
-          <div className={styles.profileLabel}>: {displayProfile.birthPlace}</div>
+            <div className={styles.profileLabel}>出身地</div>
+            <div className={styles.profileLabel}>: {displayProfile.birthPlace}</div>
 
-          <div className={styles.profileLabel}>職業</div>
-          <div className={styles.profileLabel}>: {displayProfile.occupation}</div>
+            <div className={styles.profileLabel}>職業</div>
+            <div className={styles.profileLabel}>: {displayProfile.occupation}</div>
 
-          <div className={styles.profileLabel}>所属事務所</div>
-          <div className={styles.profileLabel}>: {displayProfile.agency}</div>
+            <div className={styles.profileLabel}>所属事務所</div>
+            <div className={styles.profileLabel}>: {displayProfile.agency}</div>
 
-          <div className={styles.profileLabel}>活動期間</div>
-          <div className={styles.profileLabel}>: {displayProfile.activePeriod}</div>
+            <div className={styles.profileLabel}>活動期間</div>
+            <div className={styles.profileLabel}>: {displayProfile.activePeriod}</div>
+          </div>
+          
+          {/* 後に画像（これで右側に表示されます） */}
+          <div className={styles.imageArea}>
+            <img 
+              src={displayProfile.images[0]?.url || "/profile.jpg"} 
+              alt={displayProfile.name}
+              className={styles.profileImg} 
+            />
+          </div>
+
         </div>
       </div>
 

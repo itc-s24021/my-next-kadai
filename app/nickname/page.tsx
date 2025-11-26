@@ -1,8 +1,10 @@
 import Link from "next/link";
 import styles from "./page.module.css";
-import { titlesList } from "../data";
+import { getnicknameList } from "@/lib/microcms";
 
-export default function Titles() {
+export default async function Nicknames() {
+  const nicknames = await getnicknameList();
+
   return (
     <main className={styles.main}>
       <Link href="/" className={`${styles.backLink} no-global-color`}>
@@ -10,13 +12,13 @@ export default function Titles() {
       </Link>
 
       <div className={styles.header}>
-        <h1 className={styles.title}>肩書</h1>
+        <h1 className={styles.title}>愛称</h1>
       </div>
 
       <div className={styles.container}>
-        {titlesList.map((title, index) => (
+        {nicknames.contents.map((nickname, index) => (
           <div key={index} className={styles.card}>
-            <h2>{title}</h2>
+            <h2>{nickname.nickname}</h2>
           </div>
         ))}
       </div>

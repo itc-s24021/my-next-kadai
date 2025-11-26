@@ -15,64 +15,11 @@
   margin-bottom: 3rem;
   padding: 2rem;
   background: linear-gradient(135deg, #ffffff 0%, #fffafc 100%);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius, 12px); /* 未定義時のフォールバックを追加 */
   border: 2px solid #ffd1dc;
-  max-width: var(--max-width);
+  max-width: var(--max-width, 1200px);
   width: 100%;
   box-shadow: 0 4px 20px rgba(49, 216, 27, 0.2);
-}
-
-/* プロフィール画像の回転アニメーション */
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.profileImg {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  display: block;
-  margin: 0 auto 1rem auto;
-  border: 4px solid rgba(255, 182, 193, 0.6);
-  animation: spin 8s linear infinite;
-}
-
-/* 画像選択タブ */
-.imageTabs {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.tabButton {
-  width: 30px;
-  height: 30px;
-  border: 2px solid #ffb6c1;
-  background-color: #fff;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ff69b4;
-  transition: all 200ms ease;
-}
-
-.tabButton:hover {
-  background-color: #ffe4e1;
-  transform: scale(1.1);
-}
-
-.tabButtonActive {
-  background-color: #ff69b4;
-  color: #fff;
-  border-color: #ff69b4;
 }
 
 .title {
@@ -90,19 +37,12 @@
   margin-bottom: 1rem;
 }
 
-.description {
-  font-size: 1rem;
-  line-height: 1.8;
-  max-width: 800px;
-  margin: 10px;
-}
-
 .profileSection {
   background: linear-gradient(135deg, #ffffff 0%, #fffafc 100%);
   padding: 2rem;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius, 12px);
   border: 2px solid #ffd1dc;
-  max-width: var(--max-width);
+  max-width: var(--max-width, 1200px);
   width: 100%;
   margin-bottom: 2rem;
   box-shadow: 0 4px 20px rgba(255, 182, 193, 0.15);
@@ -116,31 +56,61 @@
   padding-bottom: 0.5rem;
 }
 
+/* === ここから配置の変更箇所 === */
+
+/* プロフィール情報のレイアウトコンテナ */
+.profileContainer {
+  display: flex;             /* 横並びにする */
+  justify-content: space-between;
+  align-items: center;       /* 上下中央揃え */
+  gap: 2rem;                 /* テキストと画像の間隔 */
+}
+
+/* テキスト情報（左側） */
 .profileGrid {
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 1rem;
-  margin-bottom: 1rem;
+  flex: 1; /* 余ったスペースを占有 */
 }
 
 .profileLabel {
   font-weight: 600;
 }
 
-.profileValue {
-  line-height: 1.6;
+/* 画像エリア（右側） */
+.imageArea {
+  flex-shrink: 0; /* 画像サイズを維持 */
 }
+
+/* 画像スタイル */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.profileImg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  /* 画像が右側で単独ブロックになるためmargin: autoを調整 */
+  margin: 0; 
+  border: 4px solid rgba(255, 182, 193, 0.6);
+  animation: spin 8s linear infinite;
+}
+
+/* === ここまで配置の変更箇所 === */
 
 .grid {
   display: grid;
-  /* デスクトップでは 2 列に固定（ただし列の最小幅を下げて小窓でも縮むようにする） */
   grid-template-columns: repeat(2, minmax(260px, 1fr));
   gap: 2rem;
-  max-width: var(--max-width);
+  max-width: var(--max-width, 1200px);
   width: 100%;
 }
 
-/* 中くらいの幅では列幅を柔軟にして自動で折り返す（ウィンドウ縮小時に綺麗に縮む） */
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -153,15 +123,15 @@
 }
 
 .card {
+  min-height: 220px;
+  min-width: 300px;
   padding: clamp(1rem, 2vw, 2rem);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius, 12px);
   background: linear-gradient(135deg, #ffffff 0%, #fffafd 100%);
   border: 2px solid #ffe4e1;
   transition: all 300ms ease;
   cursor: pointer;
   box-shadow: 0 2px 15px rgba(255, 182, 193, 0.1);
-  /* 高さは比率に応じて縮むように min を使用 */
-  min-height: min(220px, 30vh);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -177,69 +147,12 @@
 }
 
 .card h2 {
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 2vw + 1rem, 1.8rem);
   font-weight: 300;
   margin-bottom: 1rem;
 }
 
-/* カードを大きくして中身の文字を中央揃えにする */
-.card {
-  min-height: 220px; /* カードの高さを大きくする */
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.card h2 {
-  font-size: clamp(1.2rem, 2vw + 1rem, 1.8rem);
-  margin: 0;
-}
-
-.card p {
-  line-height: 1.8;
-  font-size: 0.95rem;
-}
-
-.card ul {
-  margin-top: 1rem;
-  padding-left: 1.5rem;
-  line-height: 1.8;
-}
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  padding: 3rem 0;
-  margin-bottom: 2rem;
-}
-
-.center::before {
-  content: "";
-  position: absolute;
-  background: radial-gradient(circle, rgba(255, 220, 230, 0.6), transparent);
-  border-radius: 50%;
-  width: 400px;
-  height: 400px;
-  filter: blur(60px);
-  z-index: -1;
-}
-
-.logoText {
-  font-size: 4rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #ff69b4, #ffb6c1, #ffc0cb);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 0 20px rgba(255, 182, 193, 0.4));
-}
-
-/* Mobile */
+/* Mobile Adjustments */
 @media (max-width: 768px) {
   .main {
     padding: 2rem 1rem;
@@ -253,13 +166,27 @@
     font-size: 1rem;
   }
 
+  /* スマホでのプロフィールレイアウト変更 */
+  .profileContainer {
+    flex-direction: column-reverse; /* 重要：画像を上に、テキストを下にする */
+    align-items: center; /* 中央揃えに戻す */
+    text-align: left;
+    gap: 1.5rem;
+  }
+  
+  /* スマホの時だけ画像を中央揃え＋下にマージン */
+  .profileImg {
+    margin: 0 auto;
+  }
+
   .profileGrid {
     grid-template-columns: 1fr;
     gap: 0.5rem;
+    width: 100%;
   }
 
   .profileLabel {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
   }
 
   .grid {
@@ -268,9 +195,7 @@
 
   .card {
     min-height: 140px;
-  }
-
-  .logoText {
-    font-size: 2.5rem;
+    min-width: auto; /* 幅制限を解除 */
+    width: 100%;
   }
 }
