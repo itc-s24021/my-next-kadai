@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+このリポジトリは Next.js を使って作成された Web アプリケーションのプロジェクトです。
 
-## Getting Started
+以下は、このプロジェクトを初めて見る人向けに整理した説明です。ローカルで動かす手順、主要なファイルの役割、よくある注意点をまとめています。
 
-First, run the development server:
+**前提環境**
+- Node.js (v16 以上を推奨)
+- 好みのパッケージマネージャ: `npm` / `pnpm` / `yarn`
+
+**ローカルでの起動方法**
+1. 依存パッケージをインストールします：
+
+```bash
+npm install
+# または
+pnpm install
+# または
+yarn install
+```
+
+2. 開発サーバを起動します：
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
+# または
 pnpm dev
-# or
-bun dev
+# または
+yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. ブラウザで `http://localhost:3000` にアクセスします。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**主要なファイルとディレクトリ（開発時に参照する場所）**
+- `app/page.tsx`: トップページ。表示の編集はここを変更します。
+- `app/layout.tsx`: 全ページ共通のレイアウトを定義します。
+- `components/`: 再利用可能な UI コンポーネント（例: `ImageGallery.tsx` とそのスタイル）。
+- `lib/`: 外部 API クライアントやユーティリティ（このプロジェクトでは `microcms.ts` が含まれます）。
+- `public/`: 画像や静的ファイルを配置。`/profile6.avif` のように参照できます。
+- `app/**/*.module.css`: ページやコンポーネントごとのスタイル。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**外部サービス（microCMS）について**
+- `lib/microcms.ts` を通して microCMS からデータを取得する構成になっている場合、API のキーやドメインはローカル環境変数（例: `.env.local`）に設定してください。環境変数名はコード内で参照されている名前に合わせます。
 
-## Learn More
+例：`.env.local`
 
-To learn more about Next.js, take a look at the following resources:
+```text
+NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN=your-service-domain
+NEXT_PUBLIC_MICROCMS_API_KEY=your-api-key
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**よくある問題と対処**
+- サーバーコンポーネント（`app/` 配下の一部ファイル）で `Math.random()` のような不純な関数を直接呼び出すとエラーになります。乱数やタイミング依存の処理はクライアントコンポーネント（`'use client'` を付けたファイル）で実行してください。
+- 画像パスは `public/` 配下に置けば `/画像名` で扱えます。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**追加メモ**
+- README にプロジェクト固有の環境変数名や microCMS の設定例をさらに追記できます。どの程度の詳細を加えるか指示してください。
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+必要であれば、この README からさらに「デプロイ手順（Vercel など）」「テスト実行方法」「コントリビューションルール」などを追記します。希望があれば教えてください。
